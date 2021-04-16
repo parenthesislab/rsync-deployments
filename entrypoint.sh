@@ -13,4 +13,4 @@ chmod 600 "$SSH_PATH/deploy_key"
 sh -c "rsync -avz --exclude-from rsync-exclude.txt --delete --delete-excluded . $GITHUB_WORKSPACE/container_build"
 
 # Deploy to Linode Server
-sh -c "rsync -atu -e 'ssh -p 5956 -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no' --progress --delete --exclude=/_btcpayserver $GITHUB_WORKSPACE/container_build/. $APP_SRV_USER@$APP_SRV_HOST:$APP_SRV_PATH"
+sh -c "rsync -atu -e 'ssh -p $LINODE_SRV_SSH_PORT -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no' --progress --delete --exclude=/_btcpayserver $GITHUB_WORKSPACE/container_build/. $APP_SRV_USER@$APP_SRV_HOST:$APP_SRV_PATH"
